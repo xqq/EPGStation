@@ -51,24 +51,32 @@ export default class ConfigApiModel implements IConfigApiModel {
             return e.name;
         });
 
+        // basicAuth が設定されている場合、URL Scheme の ADDRESS に認証情報を付加する
+        const addBasicAuth = (value: string | undefined): string | undefined => {
+            if (typeof value === 'undefined' || typeof config.basicAuth === 'undefined') {
+                return value;
+            }
+            return value.replace(/ADDRESS/g, `${config.basicAuth.user}:${config.basicAuth.password}@ADDRESS`);
+        };
+
         result.urlscheme = {
             m2ts: {
-                ios: config.urlscheme.m2ts.ios,
-                android: config.urlscheme.m2ts.android,
-                mac: config.urlscheme.m2ts.mac,
-                win: config.urlscheme.m2ts.win,
+                ios: addBasicAuth(config.urlscheme.m2ts.ios),
+                android: addBasicAuth(config.urlscheme.m2ts.android),
+                mac: addBasicAuth(config.urlscheme.m2ts.mac),
+                win: addBasicAuth(config.urlscheme.m2ts.win),
             },
             video: {
-                ios: config.urlscheme.video.ios,
-                android: config.urlscheme.video.android,
-                mac: config.urlscheme.video.mac,
-                win: config.urlscheme.video.win,
+                ios: addBasicAuth(config.urlscheme.video.ios),
+                android: addBasicAuth(config.urlscheme.video.android),
+                mac: addBasicAuth(config.urlscheme.video.mac),
+                win: addBasicAuth(config.urlscheme.video.win),
             },
             download: {
-                ios: config.urlscheme.download.ios,
-                android: config.urlscheme.download.android,
-                mac: config.urlscheme.download.mac,
-                win: config.urlscheme.download.win,
+                ios: addBasicAuth(config.urlscheme.download.ios),
+                android: addBasicAuth(config.urlscheme.download.android),
+                mac: addBasicAuth(config.urlscheme.download.mac),
+                win: addBasicAuth(config.urlscheme.download.win),
             },
         };
 

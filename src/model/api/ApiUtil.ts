@@ -21,7 +21,13 @@ export default class ApiUtil implements IApiUtil {
      * @return string
      */
     public createM3U8PlayListStr(option: CreateM3U8Option): string {
-        const fullUrl = urljoin(`${option.isSecure ? 'https' : 'http'}://${this.getHost(option.host)}`, option.baseUrl);
+        const config = this.configuration.getConfig();
+        const auth =
+            typeof config.basicAuth === 'undefined' ? '' : `${config.basicAuth.user}:${config.basicAuth.password}@`;
+        const fullUrl = urljoin(
+            `${option.isSecure ? 'https' : 'http'}://${auth}${this.getHost(option.host)}`,
+            option.baseUrl,
+        );
 
         return '#EXTM3U\n' + `#EXTINF: ${option.duration}, ${option.name}\n` + fullUrl;
     }
