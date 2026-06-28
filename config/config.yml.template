@@ -1,6 +1,11 @@
 port: 8888
 mirakurunPath: http+unix://%2Fvar%2Frun%2Fmirakurun.sock/
 
+# Basic 認証 (Web UI / API / ストリーミングすべてを保護する)
+# basicAuth:
+#     user: epgstation
+#     password: epgstation
+
 dbtype: sqlite
 # sqlite:
 #   extensions:

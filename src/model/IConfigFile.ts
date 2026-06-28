@@ -55,6 +55,12 @@ export default interface IConfigFile {
 
     isAllowAllCORS: boolean;
 
+    // Basic 認証
+    basicAuth?: {
+        user: string;
+        password: string;
+    };
+
     dbtype: Enums.DBType;
     sqlite?: {
         extensions?: string[];
