@@ -18,6 +18,7 @@ import IConfigFile from '../IConfigFile';
 import IConfiguration from '../IConfiguration';
 import ILogger from '../ILogger';
 import ILoggerModel from '../ILoggerModel';
+import BasicAuth from './BasicAuthMiddleware';
 import IServiceServer from './IServiceServer';
 import ISocketIOManageModel from './socketio/ISocketIOManageModel';
 
@@ -49,6 +50,7 @@ class ServiceServer implements IServiceServer {
      */
     private init(): void {
         this.setLog();
+        this.setBasicAuth();
         const api = this.getApiDocument(ServiceServer.API_YML);
         if (this.config.isAllowAllCORS === true) {
             this.app.use(cors());
@@ -65,6 +67,16 @@ class ServiceServer implements IServiceServer {
      */
     private setLog(): void {
         this.app.use(log4js.connectLogger(this.log.access, { level: 'info' }));
+    }
+
+    /**
+     * Basic 認証の設定
+     * basicAuth が設定されている場合、全ルートに Basic 認証を適用する
+     */
+    private setBasicAuth(): void {
+        if (typeof this.config.basicAuth !== 'undefined') {
+            this.app.use(BasicAuth(this.config.basicAuth.user, this.config.basicAuth.password));
+        }
     }
 
     /**
