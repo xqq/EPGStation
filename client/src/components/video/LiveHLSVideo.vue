@@ -85,7 +85,7 @@ export default class LiveHLSVideo extends BaseVideo {
             this.b24RenderState.init(this.video);
         } else {
             // hls.js 対応
-            this.hls = new Hls();
+            this.hls = new Hls({ debug: true });
             this.hls.loadSource(videoSrc);
             this.hls.attachMedia(this.video);
             this.hls.on(Hls.Events.MANIFEST_PARSED, async () => {

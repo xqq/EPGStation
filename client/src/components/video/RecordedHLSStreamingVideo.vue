@@ -185,7 +185,7 @@ export default class RecordedHLSStreamingVideo extends BaseVideo {
             this.b24RenderState.init(this.video);
         } else {
             // hls.js 対応
-            this.hls = new Hls();
+            this.hls = new Hls({ debug: true });
             this.hls.loadSource(videoSrc);
             this.hls.attachMedia(this.video);
             this.hls.once(Hls.Events.MANIFEST_PARSED, async () => {
