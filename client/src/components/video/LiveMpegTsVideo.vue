@@ -94,11 +94,11 @@ export default class LiveMpegTsVideo extends BaseVideo {
 
         // 字幕対応
         const captionOption = HLSUtil.getAribb24BaseOption();
-        captionOption.data_identifer = 0x80;
+        captionOption.data_identifier = 0x80;
         this.captionRenderer = new aribb24js.CanvasRenderer(captionOption);
 
         const superimposeOption = HLSUtil.getAribb24BaseOption();
-        superimposeOption.data_identifer = 0x81;
+        superimposeOption.data_identifier = 0x81;
         this.superimposeRenderer = new aribb24js.CanvasRenderer(superimposeOption);
 
         this.captionRenderer.attachMedia(this.video);
